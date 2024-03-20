@@ -1,17 +1,29 @@
 import streamlit as st
 import joblib
+import pandas as pd
 
-# Load the trained Linear Regression model
+# Load the trained Linear Regression model and the dataset
 model = joblib.load("linear_regression_model.joblib")
+data = pd.read_csv("movies.csv")
 
 st.title('Movie Gross Revenue Prediction')
 
-# User inputs for budget and score
-budget = st.number_input('Movie Budget', min_value=0)
-score = st.number_input('Movie Score', min_value=0.0, max_value=10.0, step=0.1)
+# Movie name input
+movie_name = st.selectbox('Choose a movie', data['name'].unique())
+
+# When a movie is selected, pre-fill the budget and score fields
+if movie_name:
+    selected_movie = data[data['name'] == movie_name].iloc[0]
+    budget = st.number_input('Movie Budget', value=int(selected_movie['budget']))
+    score = st.number_input('Movie Score', value=float(selected_movie['score']))
 
 # Predict button
 if st.button('Predict Gross Revenue'):
     # Prediction
     prediction = model.predict([[budget, score]])
+    actual = selected_movie['gross'] if not pd.isnull(selected_movie['gross']) else "Unknown"
     st.write(f'Predicted Gross Revenue: ${prediction[0]:,.2f}')
+    st.write(f'Actual Gross Revenue: ${actual:,.2f}' if actual != "Unknown" else "Actual Gross Revenue: Unknown")
+
+    # If you wanted to add a metric like MSE or R-squared, you would need to have the actual values to compare
+    # This would likely involve comparing to a test set or out-of-sample data
