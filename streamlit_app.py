@@ -12,7 +12,7 @@ movies_data = pd.read_csv('cleaned_movies.csv')
 st.title('Movie Gross Revenue Prediction')
 
 # Display an image from a file
-st.image("Aiface3.png", width=200, caption="Predict your favorite movie's revenue")
+st.image("Aiface3.png", width=300, caption="Predict your favorite movie's revenue")
 
 # Dropdown to select the movie
 selected_movie = st.selectbox('Choose a movie', movies_data['name'].unique())
