@@ -7,7 +7,7 @@ with open('random_forest_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 # Load the dataset
-movies_data = pd.read_csv('path_to_your/cleaned_movies.csv')
+movies_data = pd.read_csv('cleaned_movies.csv')
 
 st.title('Movie Gross Revenue Prediction')
 
