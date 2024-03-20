@@ -1,17 +1,20 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import pickle
 
-# Load the trained model and the dataset
-model = joblib.load('random_forest_model.joblib')
-movies_data = pd.read_csv('path_to_your/movies.csv')
+# Load the trained model
+with open('random_forest_model.pkl', 'rb') as file:
+    model = pickle.load(file)
+
+# Load the dataset
+movies_data = pd.read_csv('path_to_your/cleaned_movies.csv')
 
 st.title('Movie Gross Revenue Prediction')
 
 # Dropdown to select the movie
 selected_movie = st.selectbox('Choose a movie', movies_data['name'].unique())
 
-# When a movie is selected, we will pre-fill budget and score
+# When a movie is selected, pre-fill the budget and score
 if selected_movie:
     movie_info = movies_data[movies_data['name'] == selected_movie].iloc[0]
     budget = st.number_input('Movie Budget', value=int(movie_info['budget']))
@@ -20,8 +23,7 @@ if selected_movie:
     # Predict button
     if st.button('Predict Gross Revenue'):
         prediction = model.predict([[budget, score]])
-        # Preventing negative predictions
-        prediction = max(0, prediction[0])
+        prediction = max(0, prediction[0])  # Ensure the prediction is not negative
         st.success(f'Predicted Gross Revenue: ${prediction:,.2f}')
 
         # Display actual revenue if available
