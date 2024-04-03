@@ -1,6 +1,6 @@
 # 📦 Movie Revenue Prediction
 ```
-⬆️ (Replace above with your app's name)
+⬆️ (Is your movie going to make money?)
 ```
 
 This application helps the user predict the possible revenue for a movie based on previous data.  
