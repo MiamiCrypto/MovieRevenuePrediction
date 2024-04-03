@@ -1,9 +1,9 @@
-# 📦 Streamlit App Starter Kit 
+# 📦 Movie Revenue Prediction
 ```
 ⬆️ (Replace above with your app's name)
 ```
 
-Description of the app ...
+This application helps the user predict the possible revenue for a movie based on previous data.  
 
 ## Demo App
 
